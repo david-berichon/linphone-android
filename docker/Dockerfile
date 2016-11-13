@@ -1,4 +1,4 @@
-FROM dbndev/linphone-dev
+FROM dbndev/linphone-android
 
 RUN git clone --recursive https://github.com/david-berichon/linphone-android.git \
  && cd linphone-android \
