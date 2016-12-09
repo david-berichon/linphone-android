@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
  aptitude
 
 RUN dpkg --add-architecture i386
-RUN aptitude install -y \
+RUN aptitude update && aptitude install -y \
  libstdc++6:i386 \
  libgcc1:i386 \
  zlib1g:i386 \
