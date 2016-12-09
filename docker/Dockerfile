@@ -26,11 +26,6 @@ RUN aptitude update && aptitude install -y \
  zlib1g:i386 \
  libncurses5:i386
 
-# Add non-admin user
-RUN adduser --disabled-password --gecos "" user
-# Switch to user land
-USER user
-
 # Expose user HOME to docker build environment
 ENV HOME /home/user
 
@@ -38,6 +33,12 @@ WORKDIR $HOME
 
 # Add Sndroid SDK
 ENV ANDROID_HOME $HOME/android-sdk-linux
+
+ # This is the place where will sit the .android folder commonly used
+ # by `android create avd` and `emulator64-x86 -avd test`
+ # Without this the two commande uses different folder and produce an error of mismatch
+ ENV ANDROID_SDK_HOME $ANDROID_HOME 
+
 RUN curl https://dl.google.com/android/android-sdk_r${ANDROID_SDK_TOOLS}-linux.tgz | tar xz \
  && echo y  | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter android-${ANDROID_COMPILE_SDK} \
  && echo y  | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter platform-tools \
